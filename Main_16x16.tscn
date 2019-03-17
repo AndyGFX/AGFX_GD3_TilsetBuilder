@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/TilesetBuilder.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Template/tiles_16bit_16x16.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Template/tiles_16bit_16x16_input.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Example/AutoTile_1.png" type="Texture" id=4]
+
+[node name="Tileset_Builder_16x16" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Matrices" type="Node2D" parent="."]
+editor/display_folded = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="tiles_16bit_16x16" type="Sprite" parent="Matrices"]
+position = Vector2( 232, 99 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+
+[node name="tiles_16bit_16x16_input" type="Sprite" parent="Matrices"]
+position = Vector2( 3, 3 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="UserInput" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="SpriteInput" type="Sprite" parent="UserInput"]
+position = Vector2( 3, 3 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+centered = false
+
+[node name="SpriteOutput" type="Sprite" parent="UserInput"]
+position = Vector2( 104, 3 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+centered = false
+
