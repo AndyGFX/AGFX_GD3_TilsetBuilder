@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Scripts/TilesetBuilder.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/TilesetBuild_MAIN.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Template/tiles_16bit_16x16.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Template/tiles_16bit_16x16_input.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/Example/AutoTile_1.png" type="Texture" id=4]
@@ -26,7 +26,6 @@ texture = ExtResource( 3 )
 centered = false
 
 [node name="UserInput" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="SpriteInput" type="Sprite" parent="UserInput"]
 position = Vector2( 3, 3 )
