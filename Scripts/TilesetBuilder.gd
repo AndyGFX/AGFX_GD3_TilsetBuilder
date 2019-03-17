@@ -3,7 +3,7 @@ class_name TilesetBuilder
 var tile_width:int  = 16
 var tile_height:int = 16
 var tiles_input_image:Texture = null
-var tileset_output_image:ImageTexture = null
+var tileset_output_image:Texture = null
 var tileset_image : Image = null
 
 var tilset_3x3b = {
@@ -23,21 +23,25 @@ func SetTileSize(w:int, h:int) -> void:
 #--------------------------------------------------------------------
 # SET Input TEXTURE
 #--------------------------------------------------------------------
-func SetTexture(img_in:Texture)->void:
+func SetInputTexture(img_in:Texture)->void:
 	self.tiles_input_image = img_in
 	self.tileset_image = Image.new()
 
+func SetOutputTexture(img_out:Texture)->void:
+	self.tileset_output_image = img_out
+	
+	
 #--------------------------------------------------------------------
 # Prepare data
 #--------------------------------------------------------------------
 func Prepare() -> void:
 	
 	# create output image
-	self.tileset_output_image = ImageTexture.new()	
-	self.tileset_image.create(8*self.tile_width,6*self.tile_height,false,Image.FORMAT_RGBA8)
-	
+	#self.tileset_output_image = ImageTexture.new()	
+	#self.tileset_image.create(8*self.tile_width,6*self.tile_height,false,Image.FORMAT_RGBA8)
+	self.tileset_image = self.tileset_output_image.get_data()
 	# set output texture from image
-	self.tileset_output_image.create_from_image(self.tileset_image)
+	#self.tileset_output_image.create_from_image(self.tileset_image)
 
 #--------------------------------------------------------------------
 # Decode x or y position 
@@ -67,4 +71,20 @@ func _DecodeSubPosition(val) -> Vector2:
 		"d" : return Vector2(sub_size.x*1,sub_size.y*1)
 		
 	return Vector2(0,0)
-		
+
+#--------------------------------------------------------------------
+# BUILD
+#--------------------------------------------------------------------
+func Build():
+	
+	self.tileset_image.blit_rect(self.tiles_input_image.get_data(),Rect2(0,0,16,16),Vector2(0,0))
+	pass
+
+#--------------------------------------------------------------------
+# Tilset RESULT
+#--------------------------------------------------------------------
+func GetResult() -> ImageTexture:
+	var itex = ImageTexture.new()    
+	itex.set_storage(ImageTexture.STORAGE_RAW)
+	itex.create_from_image(self.tileset_image,0)	
+	return itex
