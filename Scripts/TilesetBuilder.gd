@@ -6,6 +6,13 @@ var tiles_input_image:Texture = null
 var tileset_output_image:ImageTexture = null
 var tileset_image : Image = null
 
+var tilset_3x3b = {
+		"0,0" : ["11abcd"],
+		"1,0" : ["14abcd"],
+		"2,0" : ["04abcd"],
+		"3,0" : ["14ac","04bd"],
+		"4,0" : ["03abcd"]
+	}
 #--------------------------------------------------------------------
 # Set tile size
 #--------------------------------------------------------------------
