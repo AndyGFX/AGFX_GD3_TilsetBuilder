@@ -6,9 +6,9 @@ var Builder =  TilesetBuilder.new()
 func _ready():
 	Builder.SetTileSize(16,16)
 	Builder.SetInputTexture(get_node("UserInput/SpriteInput").get_texture())
-	Builder.SetOutputTexture(get_node("UserInput/SpriteOutput").get_texture())
 	Builder.Prepare()
 	Builder.Build()
+	Builder.SaveTileset("TestTilset_3x3M_16x16pix")
 	get_node("UserInput/SpriteOutput").texture = Builder.GetResult()
 	
 	pass # Replace with function body.
