@@ -148,40 +148,6 @@ func Build() -> void:
 			
 	pass
 
-func BuildFromImage(width:int, height:int, src:Image,output_name:String):
-	self.SetTileSize(16,16)
-	self.SetInputImage(src)
-	self.tileset_output_name = output_name
-	self.Prepare()
-	self.Build()
-	self.Save()
-	pass
-	
-func BuildFromTexture(width:int, height:int, src:Texture,output_name:String):
-	self.SetTileSize(16,16)
-	self.SetInputImage(src.get_data())
-	self.tileset_output_name = output_name
-	self.Prepare()
-	self.Build()
-	self.Save()
-	pass
-	
-func BuildFromSprite(width:int, height:int, src:Sprite,output_name:String):
-	self.SetTileSize(16,16)
-	self.SetInputImage(src.get_texture().get_data())
-	self.tileset_output_name = output_name
-	self.Prepare()
-	self.Build()
-	self.Save()
-	pass	
-
-func Save():
-	
-	var auto_tile_atlas_texture:Texture = self.GetResult()
-	tilset_template_3x3M_16x16p.tile_set_texture(0,auto_tile_atlas_texture)
-	ResourceSaver.save("res://"+self.tileset_output_name+".tres", tilset_template_3x3M_16x16p)
-	pass
-
 
 #--------------------------------------------------------------------
 # Tilset RESULT
@@ -193,14 +159,57 @@ func GetResult() -> ImageTexture:
 	return itex
 	
 #--------------------------------------------------------------------
-# Tilset SAVE
+# Tileset SAVE
 #--------------------------------------------------------------------	
-func SaveTileset(tilset_name:String):
-	
-	self.tileset_output_name = tilset_name
+func Save():
 	
 	var auto_tile_atlas_texture:Texture = self.GetResult()
 	tilset_template_3x3M_16x16p.tile_set_texture(0,auto_tile_atlas_texture)
-	ResourceSaver.save("res://"+self.tileset_output_name+".tres", tilset_template_3x3M_16x16p)
+	ResourceSaver.save(self.tileset_output_name, tilset_template_3x3M_16x16p)
 	pass
 	
+#--------------------------------------------------------------------
+# Tileset SAVE by name
+#--------------------------------------------------------------------	
+func SaveTileset(tilset_name:String):
+	
+	self.tileset_output_name = tilset_name	
+	self.Save()
+	
+	pass
+
+#--------------------------------------------------------------------
+# BUILD and SAVE from Image
+#--------------------------------------------------------------------
+func BuildFromImage(width:int, height:int, src:Image,output_name:String):
+	self.SetTileSize(16,16)
+	self.SetInputImage(src)
+	self.tileset_output_name = output_name
+	self.Prepare()
+	self.Build()
+	self.Save()
+	pass
+
+#--------------------------------------------------------------------
+# BUILD and SAVE from Texture
+#--------------------------------------------------------------------
+func BuildFromTexture(width:int, height:int, src:Texture,output_name:String):
+	self.SetTileSize(16,16)
+	self.SetInputImage(src.get_data())
+	self.tileset_output_name = output_name
+	self.Prepare()
+	self.Build()
+	self.Save()
+	pass
+
+#--------------------------------------------------------------------
+# BUILD and SAVE from Sprite node
+#--------------------------------------------------------------------
+func BuildFromSprite(width:int, height:int, src:Sprite,output_name:String):
+	self.SetTileSize(16,16)
+	self.SetInputImage(src.get_texture().get_data())
+	self.tileset_output_name = output_name
+	self.Prepare()
+	self.Build()
+	self.Save()
+	pass	
