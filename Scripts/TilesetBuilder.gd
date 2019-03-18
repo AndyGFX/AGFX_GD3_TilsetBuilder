@@ -2,7 +2,7 @@ class_name TilesetBuilder
 
 var tile_width:int  = 16
 var tile_height:int = 16
-var tiles_input_image:Texture = null
+var tiles_input_image:Image = null
 var tileset_image : Image = null
 var tileset_output_name : String = "DefaultTilset"
 var _debug:bool = false
@@ -69,7 +69,7 @@ func SetTileSize(w:int, h:int) -> void:
 #--------------------------------------------------------------------
 # SET Input TEXTURE
 #--------------------------------------------------------------------
-func SetInputTexture(img_in:Texture)->void:
+func SetInputImage(img_in:Image)->void:
 	self.tiles_input_image = img_in
 	self.tileset_image = Image.new()
 	
@@ -144,9 +144,44 @@ func Build() -> void:
 				var dst_pos:Vector2 = Vector2(sub_pos.x+self.tile_width*int(pos_str[0]),sub_pos.y+self.tile_height*int(pos_str[1]))
 				
 				# blit subtile to tile
-				self.tileset_image.blit_rect(self.tiles_input_image.get_data(),src_rect,dst_pos)
+				self.tileset_image.blit_rect(self.tiles_input_image,src_rect,dst_pos)
 			
 	pass
+
+func BuildFromImage(width:int, height:int, src:Image,output_name:String):
+	self.SetTileSize(16,16)
+	self.SetInputImage(src)
+	self.tileset_output_name = output_name
+	self.Prepare()
+	self.Build()
+	self.Save()
+	pass
+	
+func BuildFromTexture(width:int, height:int, src:Texture,output_name:String):
+	self.SetTileSize(16,16)
+	self.SetInputImage(src.get_data())
+	self.tileset_output_name = output_name
+	self.Prepare()
+	self.Build()
+	self.Save()
+	pass
+	
+func BuildFromSprite(width:int, height:int, src:Sprite,output_name:String):
+	self.SetTileSize(16,16)
+	self.SetInputImage(src.get_texture().get_data())
+	self.tileset_output_name = output_name
+	self.Prepare()
+	self.Build()
+	self.Save()
+	pass	
+
+func Save():
+	
+	var auto_tile_atlas_texture:Texture = self.GetResult()
+	tilset_template_3x3M_16x16p.tile_set_texture(0,auto_tile_atlas_texture)
+	ResourceSaver.save("res://"+self.tileset_output_name+".tres", tilset_template_3x3M_16x16p)
+	pass
+
 
 #--------------------------------------------------------------------
 # Tilset RESULT

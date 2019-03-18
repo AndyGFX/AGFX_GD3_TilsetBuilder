@@ -4,12 +4,23 @@ var Builder =  TilesetBuilder.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Builder.SetTileSize(16,16)
-	Builder.SetInputTexture(get_node("UserInput/SpriteInput").get_texture())
-	Builder.Prepare()
-	Builder.Build()
-	Builder.SaveTileset("TestTilset_3x3M_16x16pix")
+	
+	var image = Image.new()	
+	image.load("res://Sprites/Example/AutoTile_1.png")
+
+#	Builder.SetTileSize(16,16)	
+#	Builder.SetInputImage(image)	
+#	Builder.Prepare()
+#	Builder.Build()
+#	Builder.SaveTileset("TestTilset_3x3M_16x16pix")
+#	get_node("UserInput/SpriteOutput").texture = Builder.GetResult()
+
+	Builder.BuildFromImage(16,16,image,"TestTilset_3x3M_16x16pix")
+	#Builder.BuildFromTexture(16,16,get_node("UserInput/SpriteInput").get_texture(),"TestTilset_3x3M_16x16pix")
+	#Builder.BuildFromSprite(16,16,get_node("UserInput/SpriteInput"),"TestTilset_3x3M_16x16pix")
 	get_node("UserInput/SpriteOutput").texture = Builder.GetResult()
+	
+
 	
 	pass # Replace with function body.
 
