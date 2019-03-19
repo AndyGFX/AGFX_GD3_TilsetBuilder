@@ -18,6 +18,7 @@ Create 3x3 MINIMAL tileset from image:
   - get result as texture
   - tileset is saved with bitmask per tile
   - collision shapes is not defined
+  - autotile mode is included
 
 
 # Usage:
