@@ -16,6 +16,8 @@ Create 3x3 MINIMAL tileset from image:
   - user defined tile size
   - save tileset to user defined tres
   - get result as texture
+  - tileset is saved with bitmask per tile
+  - collision shapes is not defined
 
 
 # Usage:
