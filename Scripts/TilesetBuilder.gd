@@ -6,7 +6,8 @@ var tiles_input_image:Image = null
 var tileset_image : Image = null
 var tileset_output_name : String = "DefaultTilset"
 var _debug:bool = false
-var tilset_template_3x3M_16x16p = preload("res://Template/TMP_Tileset_3x3M_16x16.tres")
+var tileset_template_3x3M_16x16p = TileSet.new()
+var tileset_id = 0
 
 var tilset_template = {
 		"0,0" : ["11abcd"],
@@ -59,6 +60,9 @@ var tilset_template = {
 		"7,5" : ["24abcd"]
 		
 	}
+	
+var bitmask = [ Vector2( 0, 0 ), 511, Vector2( 0, 1 ), 447, Vector2( 0, 2 ), 438, Vector2( 0, 3 ), 219, Vector2( 0, 4 ), 146, Vector2( 0, 5 ), 54, Vector2( 1, 0 ), 510, Vector2( 1, 1 ), 446, Vector2( 1, 2 ), 434, Vector2( 1, 3 ), 155, Vector2( 1, 4 ), 56, Vector2( 1, 5 ), 50, Vector2( 2, 0 ), 507, Vector2( 2, 1 ), 443, Vector2( 2, 2 ), 182, Vector2( 2, 3 ), 218, Vector2( 2, 4 ), 432, Vector2( 2, 5 ), 144, Vector2( 3, 0 ), 506, Vector2( 3, 1 ), 442, Vector2( 3, 2 ), 178, Vector2( 3, 3 ), 154, Vector2( 3, 4 ), 176, Vector2( 3, 5 ), 48, Vector2( 4, 0 ), 255, Vector2( 4, 1 ), 191, Vector2( 4, 2 ), 504, Vector2( 4, 3 ), 63, Vector2( 4, 4 ), 216, Vector2( 4, 5 ), 18, Vector2( 5, 0 ), 254, Vector2( 5, 1 ), 190, Vector2( 5, 2 ), 248, Vector2( 5, 3 ), 62, Vector2( 5, 4 ), 152, Vector2( 5, 5 ), 24, Vector2( 6, 0 ), 251, Vector2( 6, 1 ), 187, Vector2( 6, 2 ), 440, Vector2( 6, 3 ), 59, Vector2( 6, 4 ), 27, Vector2( 6, 5 ), 16, Vector2( 7, 0 ), 250, Vector2( 7, 1 ), 186, Vector2( 7, 2 ), 184, Vector2( 7, 3 ), 58, Vector2( 7, 4 ), 26, Vector2( 7, 5 ), 511 ] 
+
 #--------------------------------------------------------------------
 # Set tile size
 #--------------------------------------------------------------------
@@ -79,6 +83,23 @@ func SetInputImage(img_in:Image)->void:
 func Prepare() -> void:
 
 	self.tileset_image.create(8*self.tile_width,6*self.tile_height,false,Image.FORMAT_RGBA8)
+	
+	# create tilset template
+	self.tileset_template_3x3M_16x16p.create_tile(self.tileset_id)
+	self.tileset_template_3x3M_16x16p.autotile_set_bitmask_mode(self.tileset_id,TileSet.BITMASK_3X3_MINIMAL)
+	
+	
+	for id in range(0,48):
+		self.tileset_template_3x3M_16x16p.autotile_set_bitmask(0,bitmask[id*2],bitmask[id*2+1])
+		
+		
+	self.tileset_template_3x3M_16x16p.autotile_set_size(self.tileset_id,Vector2(self.tile_width,self.tile_height))
+	
+	self.tileset_template_3x3M_16x16p.tile_set_region(self.tileset_id,Rect2( 0, 0, 128, 96 ))
+	self.tileset_template_3x3M_16x16p.tile_set_tile_mode(self.tileset_id,TileSet.AUTO_TILE)
+	self.tileset_template_3x3M_16x16p.autotile_set_icon_coordinate(self.tileset_id,Vector2( 6, 5 ))
+	
+	
 
 #--------------------------------------------------------------------
 # Decode x or y position 
@@ -164,8 +185,8 @@ func GetResult() -> ImageTexture:
 func Save():
 	
 	var auto_tile_atlas_texture:Texture = self.GetResult()
-	tilset_template_3x3M_16x16p.tile_set_texture(0,auto_tile_atlas_texture)
-	ResourceSaver.save(self.tileset_output_name, tilset_template_3x3M_16x16p)
+	tileset_template_3x3M_16x16p.tile_set_texture(self.tileset_id,auto_tile_atlas_texture)
+	ResourceSaver.save(self.tileset_output_name, tileset_template_3x3M_16x16p)
 	pass
 	
 #--------------------------------------------------------------------

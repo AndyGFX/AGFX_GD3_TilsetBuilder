@@ -13,15 +13,16 @@ func _ready():
 #	Builder.SetInputImage(image)	
 #	Builder.Prepare()
 #	Builder.Build()
-#	Builder.SaveTileset("TestTilset_3x3M_16x16pix")
+#	Builder.SaveTileset("res://TestTilset_3x3M_16x16pix.tres")
 #	get_node("UserInput/SpriteOutput").texture = Builder.GetResult()
 
 # Example #2
 # ----------------------------------------------
-	var image = Image.new()	
-	image.load("res://Sprites/Example/AutoTile_1.png")
+	
 	
 	# method #2a
+	var image = Image.new()	
+	image.load("res://Sprites/Example/AutoTile_1.png")
 	Builder.BuildFromImage(16,16,image,"res://TestTilset_3x3M_16x16pix.tres")
 
 	# method #2b
