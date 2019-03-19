@@ -13,8 +13,9 @@ Create 3x3 MINIMAL tileset from image:
   - build from Image
   - build from Texture
   - build from Sprite
-  - user defind tile size
+  - user defined tile size
   - save tileset to user defined tres
+  - get result as texture
 
 
 # Usage:
@@ -22,6 +23,7 @@ Create 3x3 MINIMAL tileset from image:
 - Example #1
 ``` python
 var image = Image.new()
+var Builder =  TilesetBuilder.new()
 image.load("res://Sprites/Example/AutoTile_1.png")
 Builder.SetTileSize(16,16)
 Builder.SetInputImage(image)
@@ -34,14 +36,17 @@ get_node("UserInput/SpriteOutput").texture = Builder.GetResult()
 - Example #2
 ``` python
 var image = Image.new()
-  image.load("res://Sprites/Example/AutoTile_1.png")
-  Builder.BuildFromImage(16,16,image,"res://TestTilset_3x3M_16x16pix.tres")
+var Builder =  TilesetBuilder.new()
+image.load("res://Sprites/Example/AutoTile_1.png")
+Builder.BuildFromImage(16,16,image,"res://TestTilset_3x3M_16x16pix.tres")
 ```
 - Example #3
 ``` python
+var Builder =  TilesetBuilder.new()
 Builder.BuildFromTexture(16,16,get_node("UserInput/SpriteInput").get_texture(),"res://TestTilset_3x3M_16x16pix.tres")
 ```
 - Example #4
 ``` python
+var Builder =  TilesetBuilder.new()
 Builder.BuildFromSprite(16,16,get_node("UserInput/SpriteInput"),"res://TestTilset_3x3M_16x16pix.tres")
 ```
