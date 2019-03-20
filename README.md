@@ -54,3 +54,27 @@ Builder.BuildFromTexture(16,16,get_node("UserInput/SpriteInput").get_texture(),"
 var Builder =  TilesetBuilder.new()
 Builder.BuildFromSprite(16,16,get_node("UserInput/SpriteInput"),"res://TestTilset_3x3M_16x16pix.tres")
 ```
+
+- Example #5
+``` python
+var image1 = Image.new()	
+	
+image1.load("res://Sprites/Example/AutoTile_1.png")
+	
+var image2 = Image.new()	
+	
+image2.load("res://Sprites/Example/AutoTile_2.png")
+
+	
+var images = { 
+		
+	"0" : {"name": "AutoTile_1" ,"width":16,"height":16, "src":image1},
+		
+	"1" : {"name": "AutoTile_2" ,"width":16,"height":16, "src":image2}
+		
+}
+
+	
+
+Builder.BuildFromImages(images,"res://TestTilset_from_img_list.tres")
+```
