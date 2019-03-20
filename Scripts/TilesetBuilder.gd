@@ -4,6 +4,7 @@ var tile_width:int  = 16
 var tile_height:int = 16
 var tiles_input_image:Image = null
 var tileset_image : Image = null
+var tileset_name : String = "Base"
 var tileset_output_name : String = "DefaultTilset"
 var _debug:bool = false
 var tileset_template_3x3M_16x16p = TileSet.new()
@@ -90,7 +91,7 @@ func Prepare() -> void:
 	
 	
 	for id in range(0,48):
-		self.tileset_template_3x3M_16x16p.autotile_set_bitmask(0,bitmask[id*2],bitmask[id*2+1])
+		self.tileset_template_3x3M_16x16p.autotile_set_bitmask(self.tileset_id,bitmask[id*2],bitmask[id*2+1])
 		
 		
 	self.tileset_template_3x3M_16x16p.autotile_set_size(self.tileset_id,Vector2(self.tile_width,self.tile_height))
@@ -98,6 +99,7 @@ func Prepare() -> void:
 	self.tileset_template_3x3M_16x16p.tile_set_region(self.tileset_id,Rect2( 0, 0, 128, 96 ))
 	self.tileset_template_3x3M_16x16p.tile_set_tile_mode(self.tileset_id,TileSet.AUTO_TILE)
 	self.tileset_template_3x3M_16x16p.autotile_set_icon_coordinate(self.tileset_id,Vector2( 6, 5 ))
+	self.tileset_template_3x3M_16x16p.tile_set_name(self.tileset_id,self.tileset_name)
 	
 	
 
@@ -166,7 +168,10 @@ func Build() -> void:
 				
 				# blit subtile to tile
 				self.tileset_image.blit_rect(self.tiles_input_image,src_rect,dst_pos)
-			
+	
+	var auto_tile_atlas_texture:Texture = self.GetResult()
+	tileset_template_3x3M_16x16p.tile_set_texture(self.tileset_id,auto_tile_atlas_texture)
+	
 	pass
 
 
@@ -183,27 +188,15 @@ func GetResult() -> ImageTexture:
 # Tileset SAVE
 #--------------------------------------------------------------------	
 func Save():
-	
-	var auto_tile_atlas_texture:Texture = self.GetResult()
-	tileset_template_3x3M_16x16p.tile_set_texture(self.tileset_id,auto_tile_atlas_texture)
 	ResourceSaver.save(self.tileset_output_name, tileset_template_3x3M_16x16p)
 	pass
-	
-#--------------------------------------------------------------------
-# Tileset SAVE by name
-#--------------------------------------------------------------------	
-func SaveTileset(tilset_name:String):
-	
-	self.tileset_output_name = tilset_name	
-	self.Save()
-	
-	pass
+
 
 #--------------------------------------------------------------------
 # BUILD and SAVE from Image
 #--------------------------------------------------------------------
 func BuildFromImage(width:int, height:int, src:Image,output_name:String):
-	self.SetTileSize(16,16)
+	self.SetTileSize(width,height)
 	self.SetInputImage(src)
 	self.tileset_output_name = output_name
 	self.Prepare()
@@ -212,12 +205,32 @@ func BuildFromImage(width:int, height:int, src:Image,output_name:String):
 	pass
 
 #--------------------------------------------------------------------
+# BUILD and SAVE from Images, defined as dictionary
+#--------------------------------------------------------------------
+func BuildFromImages(src_images, output_name:String):
+	self.tileset_id = 0
+	self.tileset_output_name = output_name
+	
+	for img in src_images:
+		var data = src_images[img]
+		self.SetTileSize(data.width,data.height)
+		self.SetInputImage(data.src)
+		self.tileset_name = data.name
+		self.Prepare()
+		self.Build()
+		self.tileset_id += 1
+		
+	self.Save()
+	
+	pass
+
+#--------------------------------------------------------------------
 # BUILD and SAVE from Texture
 #--------------------------------------------------------------------
 func BuildFromTexture(width:int, height:int, src:Texture,output_name:String):
-	self.SetTileSize(16,16)
+	self.SetTileSize(width,height)
 	self.SetInputImage(src.get_data())
-	self.tileset_output_name = output_name
+	self.tileset_output_name = output_name	
 	self.Prepare()
 	self.Build()
 	self.Save()
@@ -227,7 +240,7 @@ func BuildFromTexture(width:int, height:int, src:Texture,output_name:String):
 # BUILD and SAVE from Sprite node
 #--------------------------------------------------------------------
 func BuildFromSprite(width:int, height:int, src:Sprite,output_name:String):
-	self.SetTileSize(16,16)
+	self.SetTileSize(width,height)
 	self.SetInputImage(src.get_texture().get_data())
 	self.tileset_output_name = output_name
 	self.Prepare()

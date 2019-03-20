@@ -11,6 +11,7 @@ Create 3x3 MINIMAL tileset from image:
 
 - Features:
   - build from Image
+  - build from Images (example in code under # method #2d )
   - build from Texture
   - build from Sprite
   - user defined tile size
