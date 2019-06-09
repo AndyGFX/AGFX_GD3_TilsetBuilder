@@ -169,9 +169,11 @@ func Build() -> void:
 				# blit subtile to tile
 				self.tileset_image.blit_rect(self.tiles_input_image,src_rect,dst_pos)
 	
-	var auto_tile_atlas_texture:Texture = self.GetResult()
+	var spritesheet_resource_path = self.SaveSpriteSheet()	
+	var res = load(spritesheet_resource_path)
+	tileset_template_3x3M_16x16p.tile_set_texture(self.tileset_id,res)
+	tileset_template_3x3M_16x16p.resource_path = spritesheet_resource_path;
 	
-	tileset_template_3x3M_16x16p.tile_set_texture(self.tileset_id,auto_tile_atlas_texture)
 	
 	pass
 
@@ -183,8 +185,18 @@ func GetResult() -> ImageTexture:
 	var itex = ImageTexture.new()    
 	itex.set_storage(ImageTexture.STORAGE_RAW)
 	itex.create_from_image(self.tileset_image,0)
-	
 	return itex
+
+#--------------------------------------------------------------------
+# Tilset RESULT
+#--------------------------------------------------------------------
+func SaveSpriteSheet() -> String:
+	var itex = ImageTexture.new()    
+	itex.set_storage(ImageTexture.STORAGE_RAW)
+	itex.create_from_image(self.tileset_image,0)
+	var spritesheet_resiurce_path :String = "res://TileSet_Spritesheet/"+self.tiles_input_image.get_name()+".png"
+	itex.get_data().save_png(spritesheet_resiurce_path);
+	return spritesheet_resiurce_path
 	
 #--------------------------------------------------------------------
 # Tileset SAVE

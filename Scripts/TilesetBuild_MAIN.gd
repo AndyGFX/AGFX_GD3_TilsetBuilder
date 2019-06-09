@@ -51,6 +51,6 @@ func _ready():
 		"1" : {"name": "AutoTile_2" ,"width":16,"height":16, "src":image2}
 		}
 
-	Builder.BuildFromImages(images,"res://TestTilset_from_img_list.tres")
+	Builder.BuildFromImages(images,"res://TileSet/TestTilset_from_img_list.tres")
 	
 	pass # Replace with function body.
