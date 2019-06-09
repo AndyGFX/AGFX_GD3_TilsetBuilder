@@ -170,6 +170,7 @@ func Build() -> void:
 				self.tileset_image.blit_rect(self.tiles_input_image,src_rect,dst_pos)
 	
 	var auto_tile_atlas_texture:Texture = self.GetResult()
+	
 	tileset_template_3x3M_16x16p.tile_set_texture(self.tileset_id,auto_tile_atlas_texture)
 	
 	pass
@@ -181,7 +182,8 @@ func Build() -> void:
 func GetResult() -> ImageTexture:
 	var itex = ImageTexture.new()    
 	itex.set_storage(ImageTexture.STORAGE_RAW)
-	itex.create_from_image(self.tileset_image,0)	
+	itex.create_from_image(self.tileset_image,0)
+	
 	return itex
 	
 #--------------------------------------------------------------------
