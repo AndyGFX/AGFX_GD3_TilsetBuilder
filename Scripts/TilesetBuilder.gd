@@ -171,7 +171,9 @@ func Build() -> void:
 	
 	var spritesheet_resource_path = self.SaveSpriteSheet()	
 	var res = load(spritesheet_resource_path)
+	res.set_flags(2)
 	tileset_template_3x3M_16x16p.tile_set_texture(self.tileset_id,res)
+	
 	tileset_template_3x3M_16x16p.resource_path = spritesheet_resource_path;
 	
 	
@@ -185,6 +187,7 @@ func GetResult() -> ImageTexture:
 	var itex = ImageTexture.new()    
 	itex.set_storage(ImageTexture.STORAGE_RAW)
 	itex.create_from_image(self.tileset_image,0)
+	itex.set_flags(2)
 	return itex
 
 #--------------------------------------------------------------------
@@ -194,6 +197,7 @@ func SaveSpriteSheet() -> String:
 	var itex = ImageTexture.new()    
 	itex.set_storage(ImageTexture.STORAGE_RAW)
 	itex.create_from_image(self.tileset_image,0)
+	itex.set_flags(2)
 	var spritesheet_resiurce_path :String = "res://TileSet_Spritesheet/"+self.tiles_input_image.get_name()+".png"
 	itex.get_data().save_png(spritesheet_resiurce_path);
 	return spritesheet_resiurce_path
@@ -228,6 +232,7 @@ func BuildFromImages(src_images, output_name:String):
 	for img in src_images:
 		var data = src_images[img]
 		self.SetTileSize(data.width,data.height)
+		data.src.set_name(data.name+"_spritesheet")
 		self.SetInputImage(data.src)
 		self.tileset_name = data.name
 		self.Prepare()

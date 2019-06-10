@@ -24,6 +24,11 @@ config/name="AGFX_GD3_TilsetBuilder"
 run/main_scene="res://Main_16x16.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+json_beautifier="*res://Scripts/Utils/json_beautifier.gd"
+Utils="*res://Scripts/Utils/Utils.gd"
+
 [display]
 
 window/size/width=400

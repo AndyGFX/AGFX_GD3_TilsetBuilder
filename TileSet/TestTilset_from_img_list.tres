@@ -1,7 +1,7 @@
 [gd_resource type="TileSet" load_steps=3 format=2]
 
-[ext_resource path="res://TileSet_Spritesheet/AutoTile_1.png" type="Texture" id=1]
-[ext_resource path="res://TileSet_Spritesheet/AutoTile_2.png" type="Texture" id=2]
+[ext_resource path="res://TileSet_Spritesheet/AutoTile_1_spritesheet.png" type="Texture" id=1]
+[ext_resource path="res://TileSet_Spritesheet/AutoTile_2_spritesheet.png" type="Texture" id=2]
 
 [resource]
 0/name = "AutoTile_1"
