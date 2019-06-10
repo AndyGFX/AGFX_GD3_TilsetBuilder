@@ -58,7 +58,8 @@ func _ready():
 	
 	var images_json = { 
 		"0" : {"name": "AutoTile_1" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_1.png"},
-		"1" : {"name": "AutoTile_2" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_2.png"}
+		"1" : {"name": "AutoTile_2" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_2.png"},
+		"2" : {"name": "AutoTile_3" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_3.png"}
 	}
 	Utils.SaveJSON("res://TilesetImages.data",images_json,true)
 	

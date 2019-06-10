@@ -171,7 +171,7 @@ func Build() -> void:
 	
 	var spritesheet_resource_path = self.SaveSpriteSheet()	
 	var res = load(spritesheet_resource_path)
-	res.set_flags(2)
+	
 	tileset_template_3x3M_16x16p.tile_set_texture(self.tileset_id,res)
 	
 	tileset_template_3x3M_16x16p.resource_path = spritesheet_resource_path;
