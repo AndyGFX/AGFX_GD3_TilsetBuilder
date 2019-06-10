@@ -244,6 +244,30 @@ func BuildFromImages(src_images, output_name:String):
 	pass
 
 #--------------------------------------------------------------------
+# BUILD and SAVE from Images, defined as dictionary
+#--------------------------------------------------------------------
+func BuildFromFile(src_images_definition, output_name:String):
+	self.tileset_id = 0
+	self.tileset_output_name = output_name
+	
+	for img in src_images_definition:
+		var data = src_images_definition[img]
+		var src_img = Image.new()
+		src_img.load(data.src)
+		data.src = src_img
+		self.SetTileSize(data.width,data.height)
+		data.src.set_name(data.name+"_spritesheet")
+		self.SetInputImage(data.src)
+		self.tileset_name = data.name
+		self.Prepare()
+		self.Build()
+		self.tileset_id += 1
+		
+	self.Save()
+	
+	pass
+	
+#--------------------------------------------------------------------
 # BUILD and SAVE from Texture
 #--------------------------------------------------------------------
 func BuildFromTexture(width:int, height:int, src:Texture,output_name:String):
