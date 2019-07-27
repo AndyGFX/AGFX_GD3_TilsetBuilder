@@ -63,6 +63,6 @@ func _ready():
 	}
 	Utils.SaveJSON("res://TilesetImages.data",images_json,true)
 	
-	Builder.BuildFromFile(Utils.LoadJSON("res://TilesetImages.data"),"res://TileSet/TestTilset_from_img_list.tres")
+	Builder.BuildFromFile(Utils.LoadJSON("res://TilesetImages.data"),"TestTilset_from_img_list.tres")
 	
 	pass # Replace with function body.

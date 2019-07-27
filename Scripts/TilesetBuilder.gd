@@ -9,6 +9,9 @@ var tileset_output_name : String = "DefaultTilset"
 var _debug:bool = false
 var tileset_template_3x3M_16x16p = TileSet.new()
 var tileset_id = 0
+var _tileset_folder = "res://TileSet"
+var _spritesheet_folder = "res://TileSet_Spritesheet"
+var _directory = Directory.new()
 
 var tilset_template = {
 		"0,0" : ["11abcd"],
@@ -101,6 +104,12 @@ func Prepare() -> void:
 	self.tileset_template_3x3M_16x16p.autotile_set_icon_coordinate(self.tileset_id,Vector2( 6, 5 ))
 	self.tileset_template_3x3M_16x16p.tile_set_name(self.tileset_id,self.tileset_name)
 	
+	
+	if !self._directory.dir_exists(self._spritesheet_folder):
+		self._directory.make_dir(self._spritesheet_folder)
+	
+	if !self._directory.dir_exists(self._tileset_folder):
+		self._directory.make_dir(self._tileset_folder)	
 	
 
 #--------------------------------------------------------------------
@@ -198,7 +207,7 @@ func SaveSpriteSheet() -> String:
 	itex.set_storage(ImageTexture.STORAGE_RAW)
 	itex.create_from_image(self.tileset_image,0)
 	itex.set_flags(2)
-	var spritesheet_resiurce_path :String = "res://TileSet_Spritesheet/"+self.tiles_input_image.get_name()+".png"
+	var spritesheet_resiurce_path :String = self._spritesheet_folder+"/"+self.tiles_input_image.get_name()+".png"
 	itex.get_data().save_png(spritesheet_resiurce_path);
 	return spritesheet_resiurce_path
 	
@@ -206,7 +215,7 @@ func SaveSpriteSheet() -> String:
 # Tileset SAVE
 #--------------------------------------------------------------------	
 func Save():
-	ResourceSaver.save(self.tileset_output_name, tileset_template_3x3M_16x16p)
+	ResourceSaver.save(self._tileset_folder+"/"+self.tileset_output_name, tileset_template_3x3M_16x16p)
 	pass
 
 
@@ -214,6 +223,7 @@ func Save():
 # BUILD and SAVE from Image
 #--------------------------------------------------------------------
 func BuildFromImage(width:int, height:int, src:Image,output_name:String):
+	
 	self.SetTileSize(width,height)
 	self.SetInputImage(src)
 	self.tileset_output_name = output_name
