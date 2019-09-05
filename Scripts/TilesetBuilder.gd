@@ -13,7 +13,7 @@ var _tileset_folder = "res://TileSet"
 var _spritesheet_folder = "res://TileSet_Spritesheet"
 var _directory = Directory.new()
 
-var tilset_template = {
+var tileset_template = {
 		"0,0" : ["11abcd"],
 		"1,0" : ["14abcd"],
 		"2,0" : ["04abcd"],
@@ -64,7 +64,9 @@ var tilset_template = {
 		"7,5" : ["24abcd"]
 		
 	}
-	
+
+var tileset_order_map = {}
+
 var bitmask = [ Vector2( 0, 0 ), 511, Vector2( 0, 1 ), 447, Vector2( 0, 2 ), 438, Vector2( 0, 3 ), 219, Vector2( 0, 4 ), 146, Vector2( 0, 5 ), 54, Vector2( 1, 0 ), 510, Vector2( 1, 1 ), 446, Vector2( 1, 2 ), 434, Vector2( 1, 3 ), 155, Vector2( 1, 4 ), 56, Vector2( 1, 5 ), 50, Vector2( 2, 0 ), 507, Vector2( 2, 1 ), 443, Vector2( 2, 2 ), 182, Vector2( 2, 3 ), 218, Vector2( 2, 4 ), 432, Vector2( 2, 5 ), 144, Vector2( 3, 0 ), 506, Vector2( 3, 1 ), 442, Vector2( 3, 2 ), 178, Vector2( 3, 3 ), 154, Vector2( 3, 4 ), 176, Vector2( 3, 5 ), 48, Vector2( 4, 0 ), 255, Vector2( 4, 1 ), 191, Vector2( 4, 2 ), 504, Vector2( 4, 3 ), 63, Vector2( 4, 4 ), 216, Vector2( 4, 5 ), 18, Vector2( 5, 0 ), 254, Vector2( 5, 1 ), 190, Vector2( 5, 2 ), 248, Vector2( 5, 3 ), 62, Vector2( 5, 4 ), 152, Vector2( 5, 5 ), 24, Vector2( 6, 0 ), 251, Vector2( 6, 1 ), 187, Vector2( 6, 2 ), 440, Vector2( 6, 3 ), 59, Vector2( 6, 4 ), 27, Vector2( 6, 5 ), 16, Vector2( 7, 0 ), 250, Vector2( 7, 1 ), 186, Vector2( 7, 2 ), 184, Vector2( 7, 3 ), 58, Vector2( 7, 4 ), 26, Vector2( 7, 5 ), 511 ] 
 
 #--------------------------------------------------------------------
@@ -151,7 +153,7 @@ func Build() -> void:
 		if _debug: print(tile)
 		
 		# for all composed tile from template
-		for subtiles in tilset_template[tile]:
+		for subtiles in tileset_template[tile]:
 			if _debug: print("   :"+subtiles)
 			var src_tile_pos:String = subtiles.substr(0,2)
 			var src_sub_parts:String = subtiles.substr(2,subtiles.length()-2)

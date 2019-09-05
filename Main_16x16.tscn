@@ -28,7 +28,6 @@ texture = ExtResource( 3 )
 centered = false
 
 [node name="UserInput" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="SpriteInput" type="Sprite" parent="UserInput"]
 position = Vector2( 3, 3 )
@@ -37,7 +36,7 @@ texture = ExtResource( 4 )
 centered = false
 
 [node name="SpriteOutput" type="Sprite" parent="UserInput"]
-position = Vector2( 104, 3 )
+position = Vector2( 371, 4 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 centered = false
