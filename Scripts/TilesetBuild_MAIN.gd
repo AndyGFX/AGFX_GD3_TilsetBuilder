@@ -55,14 +55,31 @@ func _ready():
 
 
 	# method #3
+#	var images_json = { 
+#		"0" : {"name": "AutoTile_1" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_1.png"},
+#		"1" : {"name": "AutoTile_2" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_2.png"},
+#		"2" : {"name": "AutoTile_3" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_3.png"}
+#	}
+#
+#	Utils.SaveJSON("res://TilesetImages.data",images_json,true)
+#
+#	Builder.BuildFromFile(Utils.LoadJSON("res://TilesetImages.data"),"TestTilset_from_img_list.tres")
+	
+	# method #4
 	
 	var images_json = { 
-		"0" : {"name": "AutoTile_1" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_1.png"},
-		"1" : {"name": "AutoTile_2" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_2.png"},
-		"2" : {"name": "AutoTile_3" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_3.png"}
+		"0" : {"name": "AutoTile_1" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_1.png"}
 	}
-	Utils.SaveJSON("res://TilesetImages.data",images_json,true)
 	
-	Builder.BuildFromFile(Utils.LoadJSON("res://TilesetImages.data"),"TestTilset_from_img_list.tres")
+	Utils.SaveJSON("res://TilesetImages4Unity.data",images_json,true)
 	
+	Builder.BuildFromFile(Utils.LoadJSON("res://TilesetImages4Unity.data"),"TestTilset_from_img_list.tres")
+	
+	Builder.ReorderTileset(
+		"AutoTile_1_spritesheet.png",
+		"AutoTile_1_UNITY_spritesheet.png",
+		Builder.tileset_order_map,
+		Builder.tileset_order_map_w,
+		Builder.tileset_order_map_h)
+		
 	pass # Replace with function body.
