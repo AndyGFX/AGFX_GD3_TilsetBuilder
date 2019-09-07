@@ -36,7 +36,7 @@ texture = ExtResource( 4 )
 centered = false
 
 [node name="SpriteOutput" type="Sprite" parent="UserInput"]
-position = Vector2( 371, 4 )
+position = Vector2( 105, 3 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 centered = false

@@ -5,9 +5,19 @@ Create 3x3 MINIMAL tileset from image:
 
 ![Alt text](Screenshots/AutoTile_1.png?raw=true "PREVIEW")
 
-- Output:
+- Base output:
 
 ![Alt text](Screenshots/Godot_v3.1-stable_win64_2019-03-18_21-39-47.png?raw=true "PREVIEW")
+
+- Reordered output (new feature)
+
+FROM 
+
+![Alt text](Screenshots/AutoTile_1_spritesheet.png?raw=true "PREVIEW")
+
+TO
+
+![Alt text](Screenshots/AutoTile_1_spritesheet_UNITY.png?raw=true "PREVIEW")
 
 - Features:
   - build from Image
@@ -20,6 +30,7 @@ Create 3x3 MINIMAL tileset from image:
   - tileset is saved with bitmask per tile
   - collision shapes is not defined
   - autotile mode is included
+  - reordering finalized tileset by user defined ordering
 
 
 # Usage:
@@ -69,4 +80,24 @@ var images = {
 }
 
 Builder.BuildFromImages(images,"res://TestTilset_from_img_list.tres")
+```
+
+- Example #6
+``` python
+	var images_json = { 
+		"0" : {"name": "AutoTile_1" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_1.png"}
+	}
+	
+	Utils.SaveJSON("res://TilesetImages4Unity.data",images_json,true)
+	
+	Builder.BuildFromFile(Utils.LoadJSON("res://TilesetImages4Unity.data"),"TestTilset_from_img_list.tres")
+	
+	Builder.ReorderTileset(
+		"res://TileSet_Spritesheet/AutoTile_1_spritesheet.png",
+		"res://TileSet_Spritesheet/AutoTile_1_spritesheet_UNITY.png",
+		16,16,
+		Builder.tileset_ruletile,
+		Builder.tileset_ruletile_w,
+		Builder.tileset_ruletile_h)
+
 ```
