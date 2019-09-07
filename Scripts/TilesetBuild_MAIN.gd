@@ -65,7 +65,7 @@ func _ready():
 #
 #	Builder.BuildFromFile(Utils.LoadJSON("res://TilesetImages.data"),"TestTilset_from_img_list.tres")
 	
-	# method #4 (work in progress !!!!)
+	# method #4 (for UNITY rule tile)
 	
 	var images_json = { 
 		"0" : {"name": "AutoTile_1" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_1.png"}
@@ -79,8 +79,8 @@ func _ready():
 		"res://TileSet_Spritesheet/AutoTile_1_spritesheet.png",
 		"res://TileSet_Spritesheet/AutoTile_1_spritesheet_UNITY.png",
 		16,16,
-		Builder.tileset_order_map,
-		Builder.tileset_order_map_w,
-		Builder.tileset_order_map_h)
+		Builder.tileset_ruletile,
+		Builder.tileset_ruletile_w,
+		Builder.tileset_ruletile_h)
 		
 	pass # Replace with function body.

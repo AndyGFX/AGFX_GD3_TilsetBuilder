@@ -65,13 +65,14 @@ var tileset_template = {
 		
 	}
 
+# UNITY
 # reorder tile for: https://pandaroo.itch.io/tilemap-auto-rule-tile-unity-template
-var tileset_order_map_w = 6
-var tileset_order_map_h = 6
-var tileset_order_map = {
+var tileset_ruletile_w = 7
+var tileset_ruletile_h = 7
+var tileset_ruletile = {
 		"0,0" : [2,4],
 		"1,0" : [4,2],
-		"2,0" : [4,3],
+		"2,0" : [4,4],
 		"3,0" : [2,5],
 		"4,0" : [4,0],
 		"5,0" : [0,1],
@@ -117,7 +118,7 @@ var tileset_order_map = {
 		"3,6" : [5,0],
 		"4,6" : [1,5],
 		"5,6" : [7,3],
-		"6,6" : [7,3]
+		"6,6" : [7,4]
 		
 }
 
@@ -254,14 +255,20 @@ func ReorderTileset(input_tileset:String,output_tileset_name:String,tile_w:int,t
 	var img_out:Image = Image.new()
 	img_out.create(tile_w*w,tile_h*h,false,Image.FORMAT_RGBA8)
 	var img_src:Image = texture_src.get_data()
-	for x in range(texture_tile_x_count):
-		for y in range(texture_tile_y_count):
-			#var src_rect:Rect2 = Rect2.new();
-			#var dst_rect:Rect2 = Rect2.new();
+	
+	
+	
+	for x in range(w):
+		for y in range(h):
+			
+			var dst_tile_pos  = order[String(x)+","+String(y)]
+			var src_rect:Rect2 = Rect2(dst_tile_pos[0]*tile_w,dst_tile_pos[1]*tile_h,tile_w,tile_h);
+			var dst_pos:Vector2 = Vector2(x*tile_w,y*tile_h);
+			img_out.blit_rect(img_src,src_rect,dst_pos)
 			pass
 		pass
 	
-	pass
+	img_out.save_png(output_tileset_name)
 	
 	
 #--------------------------------------------------------------------
