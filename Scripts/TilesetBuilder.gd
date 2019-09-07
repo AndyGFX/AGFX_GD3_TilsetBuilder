@@ -203,7 +203,7 @@ func _DecodeSubPosition(val) -> Vector2:
 func Build() -> void:
 	
 	# for all tile in template
-	for tile in self.tilset_template:
+	for tile in self.tileset_template:
 		if _debug: print(tile)
 		
 		# for all composed tile from template
@@ -247,7 +247,20 @@ func Build() -> void:
 #--------------------------------------------------------------------
 # Tileset REORDER by user defined scheme
 #--------------------------------------------------------------------
-func ReorderTileset(imput_tileset:String,output_tileset_name:String, order:Dictionary,w:int,h:int):
+func ReorderTileset(input_tileset:String,output_tileset_name:String,tile_w:int,tile_h:int,order:Dictionary,w:int,h:int):
+	var texture_src:Texture = load(input_tileset)
+	var texture_tile_x_count:int = texture_src.get_width()/tile_w
+	var texture_tile_y_count:int = texture_src.get_height()/tile_h
+	var img_out:Image = Image.new()
+	img_out.create(tile_w*w,tile_h*h,false,Image.FORMAT_RGBA8)
+	var img_src:Image = texture_src.get_data()
+	for x in range(texture_tile_x_count):
+		for y in range(texture_tile_y_count):
+			#var src_rect:Rect2 = Rect2.new();
+			#var dst_rect:Rect2 = Rect2.new();
+			pass
+		pass
+	
 	pass
 	
 	
