@@ -21,10 +21,10 @@ func _ready():
 	
 	
 #	# method #2a
-#	var image = Image.new()	
-#	image.load("res://Sprites/Example/AutoTile_1.png")
-#	Builder.BuildFromImage(16,16,image,"res://TestTilset_3x3M_16x16pix.tres")
-#	get_node("UserInput/SpriteOutput").texture = Builder.GetResult()
+	var image = Image.new()	
+	image.load("res://Sprites/Example/AutoTile_1.png")
+	Builder.BuildFromImage(16,16,image,"res://TestTilset_3x3M_16x16pix.tres")
+	get_node("UserInput/SpriteOutput").texture = Builder.GetResult()
 
 #	# method #2b
 #	Builder.BuildFromTexture(16,16,get_node("UserInput/SpriteInput").get_texture(),"res://TestTilset_3x3M_16x16pix.tres")
@@ -67,20 +67,20 @@ func _ready():
 	
 	# method #4 (for UNITY rule tile)
 	
-	var images_json = { 
-		"0" : {"name": "AutoTile_1" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_1.png"}
-	}
-	
-	Utils.SaveJSON("res://TilesetImages4Unity.data",images_json,true)
-	
-	Builder.BuildFromFile(Utils.LoadJSON("res://TilesetImages4Unity.data"),"TestTilset_from_img_list.tres")
-	
-	Builder.ReorderTileset(
-		"res://TileSet_Spritesheet/AutoTile_1_spritesheet.png",
-		"res://TileSet_Spritesheet/AutoTile_1_spritesheet_UNITY.png",
-		16,16,
-		Builder.tileset_ruletile,
-		Builder.tileset_ruletile_w,
-		Builder.tileset_ruletile_h)
+#	var images_json = { 
+#		"0" : {"name": "AutoTile_1" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_1.png"}
+#	}
+#
+#	Utils.SaveJSON("res://TilesetImages4Unity.data",images_json,true)
+#
+#	Builder.BuildFromFile(Utils.LoadJSON("res://TilesetImages4Unity.data"),"TestTilset_from_img_list.tres")
+#
+#	Builder.ReorderTileset(
+#		"res://TileSet_Spritesheet/AutoTile_1_spritesheet.png",
+#		"res://TileSet_Spritesheet/AutoTile_1_spritesheet_UNITY.png",
+#		16,16,
+#		Builder.tileset_ruletile,
+#		Builder.tileset_ruletile_w,
+#		Builder.tileset_ruletile_h)
 		
 	pass # Replace with function body.
