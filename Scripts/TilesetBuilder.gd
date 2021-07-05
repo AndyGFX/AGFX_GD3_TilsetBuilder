@@ -391,7 +391,7 @@ func BuildFromImage(width:int, height:int, src:Image,output_name:String, collisi
 #--------------------------------------------------------------------
 # BUILD and SAVE from Images, defined as dictionary
 #--------------------------------------------------------------------
-func BuildFromImages(src_images, output_name:String, collision:bool = false):
+func BuildFromImages(src_images, output_name:String):
 	self.tileset_id = 0
 	self.tileset_output_name = output_name
 	
@@ -402,7 +402,7 @@ func BuildFromImages(src_images, output_name:String, collision:bool = false):
 		self.SetInputImage(data.src)
 		self.tileset_name = data.name
 		self.Prepare()
-		self.Build(collision)
+		self.Build(data.collshape)
 		self.tileset_id += 1
 		
 	self.Save()
