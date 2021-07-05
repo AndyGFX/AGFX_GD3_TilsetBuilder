@@ -3,9 +3,10 @@ class_name TilesetBuilder
 var tile_width:int  = 16
 var tile_height:int = 16
 var tiles_input_image:Image = null
+var tiles_input_imagename = "undefined"
 var tileset_image : Image = null
 var tileset_name : String = "Base"
-var tileset_output_name : String = "DefaultTilset"
+var tileset_output_name : String = "DefaultTileset"
 var _debug:bool = false
 var tileset_template_3x3M_16x16p = TileSet.new()
 var tileset_id = 0
@@ -124,6 +125,57 @@ var tileset_ruletile = {
 
 var bitmask = [ Vector2( 0, 0 ), 511, Vector2( 0, 1 ), 447, Vector2( 0, 2 ), 438, Vector2( 0, 3 ), 219, Vector2( 0, 4 ), 146, Vector2( 0, 5 ), 54, Vector2( 1, 0 ), 510, Vector2( 1, 1 ), 446, Vector2( 1, 2 ), 434, Vector2( 1, 3 ), 155, Vector2( 1, 4 ), 56, Vector2( 1, 5 ), 50, Vector2( 2, 0 ), 507, Vector2( 2, 1 ), 443, Vector2( 2, 2 ), 182, Vector2( 2, 3 ), 218, Vector2( 2, 4 ), 432, Vector2( 2, 5 ), 144, Vector2( 3, 0 ), 506, Vector2( 3, 1 ), 442, Vector2( 3, 2 ), 178, Vector2( 3, 3 ), 154, Vector2( 3, 4 ), 176, Vector2( 3, 5 ), 48, Vector2( 4, 0 ), 255, Vector2( 4, 1 ), 191, Vector2( 4, 2 ), 504, Vector2( 4, 3 ), 63, Vector2( 4, 4 ), 216, Vector2( 4, 5 ), 18, Vector2( 5, 0 ), 254, Vector2( 5, 1 ), 190, Vector2( 5, 2 ), 248, Vector2( 5, 3 ), 62, Vector2( 5, 4 ), 152, Vector2( 5, 5 ), 24, Vector2( 6, 0 ), 251, Vector2( 6, 1 ), 187, Vector2( 6, 2 ), 440, Vector2( 6, 3 ), 59, Vector2( 6, 4 ), 27, Vector2( 6, 5 ), 16, Vector2( 7, 0 ), 250, Vector2( 7, 1 ), 186, Vector2( 7, 2 ), 184, Vector2( 7, 3 ), 58, Vector2( 7, 4 ), 26, Vector2( 7, 5 ), 511 ] 
 
+var tilset_collision = {
+		"0,0" : "none",
+		"1,0" : "none",
+		"2,0" : "none",
+		"3,0" : "none",
+		"4,0" : "none",
+		"5,0" : "none",
+		"6,0" : "none",
+		"7,0" : "none",
+		"0,1" : "none",
+		"1,1" : "none",
+		"2,1" : "none",
+		"3,1" : "none",
+		"4,1" : "none",
+		"5,1" : "none",
+		"6,1" : "none",
+		"7,1" : "none",
+		"0,2" : "collision",
+		"1,2" : "collision",
+		"2,2" : "collision",
+		"3,2" : "collision",
+		"4,2" : "collision",
+		"5,2" : "collision",
+		"6,2" : "collision",
+		"7,2" : "collision",
+		"0,3" : "collision",
+		"1,3" : "collision",
+		"2,3" : "collision",
+		"3,3" : "collision",
+		"4,3" : "collision",
+		"5,3" : "collision",
+		"6,3" : "collision",
+		"7,3" : "collision",
+		"0,4" : "collision",
+		"1,4" : "collision",
+		"2,4" : "collision",
+		"3,4" : "collision",
+		"4,4" : "collision",
+		"5,4" : "collision",
+		"6,4" : "collision",
+		"7,4" : "collision",
+		"0,5" : "collision",
+		"1,5" : "collision",
+		"2,5" : "collision",
+		"3,5" : "collision",
+		"4,5" : "collision",
+		"5,5" : "collision",
+		"6,5" : "collision",
+		"7,5" : "none"
+}
+
 #--------------------------------------------------------------------
 # Set tile size
 #--------------------------------------------------------------------
@@ -137,6 +189,7 @@ func SetTileSize(w:int, h:int) -> void:
 func SetInputImage(img_in:Image)->void:
 	self.tiles_input_image = img_in
 	self.tileset_image = Image.new()
+	self.tiles_input_imagename = img_in.get_name()
 	
 #--------------------------------------------------------------------
 # Prepare data
@@ -201,7 +254,7 @@ func _DecodeSubPosition(val) -> Vector2:
 #--------------------------------------------------------------------
 # BUILD
 #--------------------------------------------------------------------
-func Build() -> void:
+func Build(collision:bool = false) -> void:
 	
 	# for all tile in template
 	for tile in self.tileset_template:
@@ -240,13 +293,13 @@ func Build() -> void:
 	
 	tileset_template_3x3M_16x16p.tile_set_texture(self.tileset_id,res)
 	
-	tileset_template_3x3M_16x16p.resource_path = spritesheet_resource_path;
-	
-	
+	#tileset_template_3x3M_16x16p.resource_path = spritesheet_resource_path;
+	if (collision):
+		self.AddCollisionShape()
 	pass
 
 #--------------------------------------------------------------------
-# Tileset REORDER by user defined scheme
+# Tileset REORDER by user defined scheme and save as new image
 #--------------------------------------------------------------------
 func ReorderTileset(input_tileset:String,output_tileset_name:String,tile_w:int,tile_h:int,order:Dictionary,w:int,h:int):
 	var texture_src:Texture = load(input_tileset)
@@ -270,7 +323,25 @@ func ReorderTileset(input_tileset:String,output_tileset_name:String,tile_w:int,t
 	
 	img_out.save_png(output_tileset_name)
 	
-	
+#--------------------------------------------------------------------
+# Tileset REORDER by user defined scheme
+#--------------------------------------------------------------------
+func AddCollisionShape():
+	var id:int = 0
+	for tile in self.tilset_collision:
+		var pos_str:PoolStringArray = tile.split(",")
+		var state:String =tilset_collision[tile] 
+		var tx:int = int(pos_str[0]) 
+		var ty:int = int(pos_str[1])
+		if (state=="collision"): 
+			var shape = ConvexPolygonShape2D.new()
+			shape.points = [Vector2(0,0),Vector2(0,self.tile_height),Vector2(self.tile_width,self.tile_height),Vector2(self.tile_width,0)]
+			self.tileset_template_3x3M_16x16p.tile_add_shape(0,shape,Transform2D(0.0,Vector2(0,0)),false,Vector2(tx,ty))
+		id=+1;
+		pass
+		
+	pass
+
 #--------------------------------------------------------------------
 # Tilset RESULT
 #--------------------------------------------------------------------
@@ -289,28 +360,30 @@ func SaveSpriteSheet() -> String:
 	itex.set_storage(ImageTexture.STORAGE_RAW)
 	itex.create_from_image(self.tileset_image,0)
 	itex.set_flags(2)
-	var spritesheet_resiurce_path :String = self._spritesheet_folder+"/"+self.tiles_input_image.get_name()+".png"
-	itex.get_data().save_png(spritesheet_resiurce_path);
-	return spritesheet_resiurce_path
+	var spritesheet_resource_path :String = self._spritesheet_folder+"/"+self.tiles_input_image.get_name()+".png"
+	itex.get_data().save_png(spritesheet_resource_path);
+	return spritesheet_resource_path
 	
 #--------------------------------------------------------------------
 # Tileset SAVE
 #--------------------------------------------------------------------	
 func Save():
-	ResourceSaver.save(self._tileset_folder+"/"+self.tileset_output_name, tileset_template_3x3M_16x16p)
+	
+	ResourceSaver.save(self.tileset_output_name, self.tileset_template_3x3M_16x16p,0)
+	
 	pass
 
 
 #--------------------------------------------------------------------
 # BUILD and SAVE from Image
 #--------------------------------------------------------------------
-func BuildFromImage(width:int, height:int, src:Image,output_name:String):
+func BuildFromImage(width:int, height:int, src:Image,output_name:String, collision:bool = false):
 	
-	self.SetTileSize(width,height)
+	self.SetTileSize(width,height)	
 	self.SetInputImage(src)
 	self.tileset_output_name = output_name
 	self.Prepare()
-	self.Build()
+	self.Build(collision)
 	self.Save()
 	pass
 
@@ -328,7 +401,7 @@ func BuildFromImages(src_images, output_name:String):
 		self.SetInputImage(data.src)
 		self.tileset_name = data.name
 		self.Prepare()
-		self.Build()
+		self.Build()		
 		self.tileset_id += 1
 		
 	self.Save()

@@ -12,8 +12,9 @@ func _ready():
 #	Builder.SetTileSize(16,16)	
 #	Builder.SetInputImage(image)	
 #	Builder.Prepare()
-#	Builder.Build()
-#	Builder.SaveTileset("res://TestTilset_3x3M_16x16pix.tres")
+#	Builder.Build(true) # if true generate collision shape 
+#	Builder.tileset_output_name = "res://TileSet/TestTilset_3x3M_16x16pix.tres"
+#	Builder.Save()	
 #	get_node("UserInput/SpriteOutput").texture = Builder.GetResult()
 
 # Example #2
@@ -22,8 +23,13 @@ func _ready():
 	
 #	# method #2a
 	var image = Image.new()	
-	image.load("res://Sprites/Example/AutoTile_1.png")
-	Builder.BuildFromImage(16,16,image,"res://TestTilset_3x3M_16x16pix.tres")
+	var image_folder = "res://Sprites/Example"
+	var image_filename = "AutoTile_1.png"
+	var image_name = "AutoTile_1"
+	
+	image.load(image_folder+"/"+image_filename)
+	image.set_name(image_name);
+	Builder.BuildFromImage(16,16,image,"res://TestTilset_3x3M_16x16pix.tres",true)
 	get_node("UserInput/SpriteOutput").texture = Builder.GetResult()
 
 #	# method #2b
