@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/AutoTile_1.png-e39dc5c088646df4c8c09968ab914d04.stex"
+path="res://.import/AutoTile_1_spritesheet.png-773ef4c034a2e47ba2e22c8d5c7b0e58.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TileSet_Spritesheet/AutoTile_1.png"
-dest_files=[ "res://.import/AutoTile_1.png-e39dc5c088646df4c8c09968ab914d04.stex" ]
+source_file="res://TileSet_Spritesheet/AutoTile_1_spritesheet.png"
+dest_files=[ "res://.import/AutoTile_1_spritesheet.png-773ef4c034a2e47ba2e22c8d5c7b0e58.stex" ]
 
 [params]
 

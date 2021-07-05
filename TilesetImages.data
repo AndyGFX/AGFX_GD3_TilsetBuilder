@@ -1,17 +1,20 @@
 {
 	"0": {
+		"collshape": true,
 		"height": 16,
 		"name": "AutoTile_1",
 		"src": "res://Sprites/Example/AutoTile_1.png",
 		"width": 16
 	},
 	"1": {
+		"collshape": false,
 		"height": 16,
 		"name": "AutoTile_2",
 		"src": "res://Sprites/Example/AutoTile_2.png",
 		"width": 16
 	},
 	"2": {
+		"collshape": true,
 		"height": 16,
 		"name": "AutoTile_3",
 		"src": "res://Sprites/Example/AutoTile_3.png",

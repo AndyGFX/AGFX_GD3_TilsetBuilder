@@ -22,15 +22,15 @@ func _ready():
 	
 	
 #	# method #2a
-	var image = Image.new()	
-	var image_folder = "res://Sprites/Example"
-	var image_filename = "AutoTile_1.png"
-	var image_name = "AutoTile_1"
-	
-	image.load(image_folder+"/"+image_filename)
-	image.set_name(image_name);
-	Builder.BuildFromImage(16,16,image,"res://TestTilset_3x3M_16x16pix.tres",true)
-	get_node("UserInput/SpriteOutput").texture = Builder.GetResult()
+#	var image = Image.new()	
+#	var image_folder = "res://Sprites/Example"
+#	var image_filename = "AutoTile_1.png"
+#	var image_name = "AutoTile_1"
+#
+#	image.load(image_folder+"/"+image_filename)
+#	image.set_name(image_name);
+#	Builder.BuildFromImage(16,16,image,"res://TestTilset_3x3M_16x16pix.tres",true)
+#	get_node("UserInput/SpriteOutput").texture = Builder.GetResult()
 
 #	# method #2b
 #	Builder.BuildFromTexture(16,16,get_node("UserInput/SpriteInput").get_texture(),"res://TestTilset_3x3M_16x16pix.tres")
@@ -43,7 +43,7 @@ func _ready():
 	
 	
 #	# method #2d
-#
+##
 #	var image1 = Image.new()	
 #	image1.load("res://Sprites/Example/AutoTile_1.png")
 #
@@ -57,19 +57,19 @@ func _ready():
 #		"1" : {"name": "AutoTile_2" ,"width":16,"height":16, "src":image2}
 #		}
 #
-#	Builder.BuildFromImages(images,"res://TileSet/TestTilset_from_img_list.tres")
+#	Builder.BuildFromImages(images,"res://TileSet/TestTilset_from_img_list.tres",true)
 
 
 	# method #3
-#	var images_json = { 
-#		"0" : {"name": "AutoTile_1" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_1.png"},
-#		"1" : {"name": "AutoTile_2" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_2.png"},
-#		"2" : {"name": "AutoTile_3" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_3.png"}
-#	}
-#
-#	Utils.SaveJSON("res://TilesetImages.data",images_json,true)
-#
-#	Builder.BuildFromFile(Utils.LoadJSON("res://TilesetImages.data"),"TestTilset_from_img_list.tres")
+	var images_json = { 
+		"0" : {"name": "AutoTile_1" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_1.png", "collshape":true},
+		"1" : {"name": "AutoTile_2" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_2.png", "collshape":false},
+		"2" : {"name": "AutoTile_3" ,"width":16,"height":16, "src":"res://Sprites/Example/AutoTile_3.png", "collshape":true}
+	}
+
+	Utils.SaveJSON("res://TilesetImages.data",images_json,true)
+
+	Builder.BuildFromFile(Utils.LoadJSON("res://TilesetImages.data"),"res://TileSet/TestTilset_from_img_list.tres")
 	
 	# method #4 (for UNITY rule tile)
 	

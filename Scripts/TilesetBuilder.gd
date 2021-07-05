@@ -293,7 +293,8 @@ func Build(collision:bool = false) -> void:
 	
 	tileset_template_3x3M_16x16p.tile_set_texture(self.tileset_id,res)
 	
-	#tileset_template_3x3M_16x16p.resource_path = spritesheet_resource_path;
+	tileset_template_3x3M_16x16p.resource_path = spritesheet_resource_path;
+	
 	if (collision):
 		self.AddCollisionShape()
 	pass
@@ -336,7 +337,7 @@ func AddCollisionShape():
 		if (state=="collision"): 
 			var shape = ConvexPolygonShape2D.new()
 			shape.points = [Vector2(0,0),Vector2(0,self.tile_height),Vector2(self.tile_width,self.tile_height),Vector2(self.tile_width,0)]
-			self.tileset_template_3x3M_16x16p.tile_add_shape(0,shape,Transform2D(0.0,Vector2(0,0)),false,Vector2(tx,ty))
+			self.tileset_template_3x3M_16x16p.tile_add_shape(self.tileset_id,shape,Transform2D(0.0,Vector2(0,0)),false,Vector2(tx,ty))
 		id=+1;
 		pass
 		
@@ -390,7 +391,7 @@ func BuildFromImage(width:int, height:int, src:Image,output_name:String, collisi
 #--------------------------------------------------------------------
 # BUILD and SAVE from Images, defined as dictionary
 #--------------------------------------------------------------------
-func BuildFromImages(src_images, output_name:String):
+func BuildFromImages(src_images, output_name:String, collision:bool = false):
 	self.tileset_id = 0
 	self.tileset_output_name = output_name
 	
@@ -401,7 +402,7 @@ func BuildFromImages(src_images, output_name:String):
 		self.SetInputImage(data.src)
 		self.tileset_name = data.name
 		self.Prepare()
-		self.Build()		
+		self.Build(collision)
 		self.tileset_id += 1
 		
 	self.Save()
@@ -425,7 +426,7 @@ func BuildFromFile(src_images_definition, output_name:String):
 		self.SetInputImage(data.src)
 		self.tileset_name = data.name
 		self.Prepare()
-		self.Build()
+		self.Build(data.collshape)
 		self.tileset_id += 1
 		
 	self.Save()
